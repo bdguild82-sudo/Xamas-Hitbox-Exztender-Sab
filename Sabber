@@ -1,0 +1,30 @@
+local Players = game:GetService("Players")
+local size = Vector3.new(5,6,4)
+
+local function makeHitbox(char)
+    local r = char:WaitForChild("HumanoidRootPart")
+    if char:FindFirstChild("Hitbox") then char.Hitbox:Destroy() end
+    local hb = Instance.new("Part")
+    hb.Name = "Hitbox"
+    hb.Size = size
+    hb.CFrame = r.CFrame
+    hb.Anchored = true
+    hb.CanCollide = false
+    hb.Transparency = 0.9
+    hb.Color = Color3.fromRGB(255,50,50)
+    hb.Material = Enum.Material.Neon
+    hb.Parent = char
+
+    game:GetService("RunService").Heartbeat:Connect(function()
+        if hb.Parent == nil or r.Parent == nil then return end
+        hb.CFrame = r.CFrame
+    end)
+end
+
+Players.PlayerAdded:Connect(function(p)
+    p.CharacterAdded:Connect(makeHitbox)
+end)
+
+for _,p in ipairs(Players:GetPlayers()) do
+    if p.Character then makeHitbox(p.Character) end
+end
