@@ -1,5 +1,5 @@
 local Players = game:GetService("Players")
-local size = Vector3.new(5,6,4)
+local size = Vector3.new(9,9,10)
 
 local function makeHitbox(char)
     local r = char:WaitForChild("HumanoidRootPart")
